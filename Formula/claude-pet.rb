@@ -1,0 +1,46 @@
+# claude-pet: a tiny creature on your Mac that shows what Claude Code is doing.
+# https://github.com/r45635/claude-pet
+#
+# Homebrew installs the release archive; `claude-pet setup` then copies the app to
+# ~/.claude-pet/app, wires it into Claude Code and starts it at login. From there the app
+# updates itself (signed releases only), so the `claude-pet` command below runs that copy
+# when it exists — brew's own copy is only what `setup` installs from.
+class ClaudePet < Formula
+  desc "Tiny creature on your Mac that shows what Claude Code is doing"
+  homepage "https://github.com/r45635/claude-pet"
+  url "https://github.com/r45635/claude-pet/releases/download/v0.4.0/claude-pet-aarch64-apple-darwin.tar.gz"
+  version "0.4.0"
+  sha256 "10f9cac99e7312cce90138792a3af7d2a74f4f2120122ae97bdfe4ca5ecad52a"
+  license "MIT"
+
+  depends_on arch: :arm64
+  depends_on :macos
+
+  def install
+    libexec.install "claude-pet", "claude-pet-widget", "hooks"
+    (bin/"claude-pet").write <<~SH
+      #!/bin/sh
+      # The installed app updates itself; prefer it, except to (re)install it.
+      app="$HOME/.claude-pet/app/claude-pet"
+      if [ "$1" != "setup" ] && [ -x "$app" ]; then exec "$app" "$@"; fi
+      exec "#{libexec}/claude-pet" "$@"
+    SH
+  end
+
+  def caveats
+    <<~EOS
+      Finish with:
+        claude-pet setup
+      It installs the app in ~/.claude-pet/app, wires it into Claude Code (your settings are
+      backed up and merged, never overwritten) and starts the creature at login. It updates
+      itself from then on.
+
+      Before `brew uninstall claude-pet`, run:
+        claude-pet uninstall
+    EOS
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{libexec}/claude-pet version")
+  end
+end
