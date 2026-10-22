@@ -9,7 +9,6 @@ class ClaudePet < Formula
   desc "Tiny creature on your Mac that shows what Claude Code is doing"
   homepage "https://github.com/r45635/claude-pet"
   url "https://github.com/r45635/claude-pet/releases/download/v0.4.0/claude-pet-aarch64-apple-darwin.tar.gz"
-  version "0.4.0"
   sha256 "10f9cac99e7312cce90138792a3af7d2a74f4f2120122ae97bdfe4ca5ecad52a"
   license "MIT"
 
