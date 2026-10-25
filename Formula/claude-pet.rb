@@ -8,8 +8,8 @@
 class ClaudePet < Formula
   desc "Tiny creature on your Mac that shows what Claude Code is doing"
   homepage "https://github.com/r45635/claude-pet"
-  url "https://github.com/r45635/claude-pet/releases/download/v0.5.4/claude-pet-aarch64-apple-darwin.tar.gz"
-  sha256 "ab228ab9152193d59de8c6072338f2487a8873641eb7446151851ab4ce985012"
+  url "https://github.com/r45635/claude-pet/releases/download/v0.5.5/claude-pet-aarch64-apple-darwin.tar.gz"
+  sha256 "511e9357901d24017d3cb7c372a95c4f6c74a4cfc4f116da8a208ca09f18b683"
   license "MIT"
 
   depends_on arch: :arm64
